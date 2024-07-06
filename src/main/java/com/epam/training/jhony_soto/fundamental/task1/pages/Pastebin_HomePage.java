@@ -1,4 +1,5 @@
 package com.epam.training.jhony_soto.fundamental.task1.pages;
+import com.epam.training.jhony_soto.fundamental.task1.tests.Pastebin_BaseTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class Pastebin_HomePage {
+public class Pastebin_HomePage extends Pastebin_BaseTests {
     private final ChromeDriver driver;
     private final WebDriverWait wait;
 
@@ -45,12 +46,11 @@ public class Pastebin_HomePage {
 
     public void selectPasteExpirationOption(String option){
         List<WebElement> options = getPasteExpirationOptions();
-        for (WebElement value : options){
-            if (value.getText().equals(option)){
-                value.click();
-                break;
-            }
-        }
+
+        options.stream()
+                .filter(opt -> opt.getText().equals(option))
+                .findFirst()
+                .ifPresent(WebElement::click);
     }
 
     public void addTextNameTitle(String name){

@@ -47,23 +47,21 @@ public class Pastebin_HomePage {
     public void selectSyntaxHighlightOption(String option){
         syntaxHighlightBox.click();
         List<WebElement> options = getOptions();
-        for (WebElement value : options){
-            if (value.getText().equals(option)){
-                value.click();
-                break;
-            }
-        }
+
+        options.stream()
+                .filter(opt -> opt.getText().equals(option))
+                .findFirst()
+                .ifPresent(WebElement::click);
     }
 
     public void selectPasteExpirationOption(String option){
         pasteExpirationBox.click();
         List<WebElement> options = getOptions();
-        for (WebElement value : options){
-            if (value.getText().equals(option)){
-                value.click();
-                break;
-            }
-        }
+
+        options.stream()
+                .filter(opt -> opt.getText().equals(option))
+                .findFirst()
+                .ifPresent(WebElement::click);
     }
 
     public void addTextNameTitle(String name){

@@ -1,6 +1,4 @@
 package com.epam.training.jhony_soto.fundamental.task1.tests;
-
-import com.epam.training.jhony_soto.fundamental.task1.pages.Pastebin_HomePage;
 import com.epam.training.jhony_soto.fundamental.task1.pages.Pastebin_PostedBinPage;
 import org.testng.annotations.Test;
 
@@ -9,15 +7,15 @@ import static org.testng.AssertJUnit.*;
 public class Pastebin_Tests extends Pastebin_BaseTests{
 
     @Test
-    public void AddNewPasteTest(){
-        Pastebin_HomePage homePage = pastebin_homePage;
-        homePage.addTextBoard("Hello from WebDriver");
-        homePage.selectPasteExpirationOption("10 Minutes");
-        homePage.addTextNameTitle("helloweb");
-        Pastebin_PostedBinPage postedBinPage = homePage.submitNewPaste();
+    public void addNewPasteTest(){
+        goToHomePage();
+        pastebin_homePage.addTextBoard("Hello from WebDriver");
+        pastebin_homePage.selectPasteExpirationOption("10 Minutes");
+        pastebin_homePage.addTextNameTitle("helloweb");
 
-        String successMessage = postedBinPage.getSuccessPostedBinText();
+        var postedBinPage = new Pastebin_PostedBinPage(driver);
+        pastebin_homePage.submitNewPaste();
 
-        assertTrue(successMessage.contains("Your guest paste has been posted"));
+        assertTrue(postedBinPage.validateSuccessMessage());
     }
 }

@@ -1,5 +1,6 @@
 package com.epam.training.jhony_soto.fundamental.task1.pages;
 
+import com.epam.training.jhony_soto.fundamental.task1.tests.Pastebin_BaseTests;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Pastebin_PostedBinPage {
+public class Pastebin_PostedBinPage extends Pastebin_BaseTests {
     private final ChromeDriver driver;
     private final WebDriverWait wait;
 
@@ -22,8 +23,10 @@ public class Pastebin_PostedBinPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getSuccessPostedBinText(){
+    public Boolean validateSuccessMessage(){
         wait.until(ExpectedConditions.visibilityOf(successfulPostedBinMessage));
-        return successfulPostedBinMessage.getText();
+        String successfulPostedBinMessageText = successfulPostedBinMessage.getText();
+        return successfulPostedBinMessageText.contains("Your guest paste has been posted");
     }
+
 }

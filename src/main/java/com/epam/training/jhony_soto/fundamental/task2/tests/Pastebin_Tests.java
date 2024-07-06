@@ -1,7 +1,5 @@
 package com.epam.training.jhony_soto.fundamental.task2.tests;
 
-import com.epam.training.jhony_soto.fundamental.task2.pages.Pastebin_HomePage;
-import com.epam.training.jhony_soto.fundamental.task2.pages.Pastebin_PostedBinPage;
 import org.testng.annotations.Test;
 
 import java.nio.file.Files;
@@ -13,7 +11,7 @@ import static org.testng.AssertJUnit.*;
 public class Pastebin_Tests extends Pastebin_BaseTests {
 
     @Test
-    public void AddNewPasteTest() throws IOException {
+    public void addNewPasteTest() throws IOException {
         // Preconditions
         String filePath = "src/main/java/com/epam/training/jhony_soto/fundamental/task2/src/code.txt";
         String text = new String(Files.readAllBytes(Paths.get(filePath)));
@@ -24,12 +22,12 @@ public class Pastebin_Tests extends Pastebin_BaseTests {
         String syntaxHighlight = "Bash";
 
         // Test
-        Pastebin_HomePage homePage = pastebin_homePage;
-        homePage.addTextBoard(text);
-        homePage.selectSyntaxHighlightOption(syntaxHighlight);
-        homePage.selectPasteExpirationOption("10 Minutes");
-        homePage.addTextNameTitle(nameTitle);
-        Pastebin_PostedBinPage postedBinPage = homePage.submitNewPaste();
+        goToHomePage();
+        pastebin_homePage.addTextBoard(text);
+        pastebin_homePage.selectSyntaxHighlightOption(syntaxHighlight);
+        pastebin_homePage.selectPasteExpirationOption("10 Minutes");
+        pastebin_homePage.addTextNameTitle(nameTitle);
+        var postedBinPage = pastebin_homePage.submitNewPaste();
 
         String pageTitle = postedBinPage.getPageTitle();
         String syntaxText = postedBinPage.getSyntaxText();

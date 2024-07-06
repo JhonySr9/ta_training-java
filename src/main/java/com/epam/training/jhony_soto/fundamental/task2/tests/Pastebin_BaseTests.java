@@ -5,25 +5,17 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 
 public class Pastebin_BaseTests {
 
     private ChromeDriver driver;
     protected Pastebin_HomePage pastebin_homePage;
+    protected static final String HOMEPAGE_URL = "https://pastebin.com/";
 
     @BeforeClass
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        goHome();
-    }
-
-
-    @BeforeMethod
-    public void goHome() {
-        driver.get("https://pastebin.com/");
-        pastebin_homePage = new Pastebin_HomePage(driver);
     }
 
     @AfterClass
@@ -31,5 +23,10 @@ public class Pastebin_BaseTests {
         if (driver != null){
             driver.quit();
         }
+    }
+
+    public void goToHomePage() {
+        driver.get(HOMEPAGE_URL);
+        pastebin_homePage = new Pastebin_HomePage(driver);
     }
 }

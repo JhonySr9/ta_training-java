@@ -24,7 +24,8 @@ public class Pastebin_PostedBinPage {
     @FindBy(className = "highlighted-code")
     private WebElement sourceCode;
 
-    private final By codeList = By.xpath("//div[@class='de1']");
+    @FindBy (xpath = "//div[@class='de1']")
+    private List<WebElement> codeList;
 
     public Pastebin_PostedBinPage(ChromeDriver driver){
         this.driver = driver;
@@ -41,14 +42,8 @@ public class Pastebin_PostedBinPage {
         return syntaxHighlightMessage.getText();
     }
 
-    public List<WebElement> getCodeValues(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated((codeList)));
-        return driver.findElements((codeList));
-    }
-
     public String selectCodeValueText(int paragraph) {
         wait.until(ExpectedConditions.visibilityOf(sourceCode));
-        List<WebElement> values = getCodeValues();
-        return values.get(paragraph - 1).getText();
+        return codeList.get(paragraph - 1).getText();
     }
 }
